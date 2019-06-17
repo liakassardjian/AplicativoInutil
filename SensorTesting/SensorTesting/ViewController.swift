@@ -18,13 +18,12 @@ class ViewController: UIViewController {
     let collider = UICollisionBehavior()
     
     var balls:[UIView] = []
-    
-    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.7035043312, green: 0.4171022667, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.5980905911, blue: 0.3536005144, alpha: 1),#colorLiteral(red: 0.4720113319, green: 1, blue: 0.5710921309, alpha: 1),#colorLiteral(red: 0.2889700684, green: 0.8908427892, blue: 1, alpha: 1)]
+    var yPositions:[CGPoint] = []
+    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.7035043312, green: 0.4171022667, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.5980905911, blue: 0.3536005144, alpha: 1),#colorLiteral(red: 0.4720113319, green: 1, blue: 0.5710921309, alpha: 1),#colorLiteral(red: 0.2889700684, green: 0.8908427892, blue: 1, alpha: 1),#colorLiteral(red: 0.9688869792, green: 0.4431061404, blue: 1, alpha: 1),#colorLiteral(red: 0.07239587351, green: 0.7626705266, blue: 0, alpha: 1),#colorLiteral(red: 0, green: 0.3556698624, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.738083218, blue: 0.1104417758, alpha: 1),#colorLiteral(red: 0.7113340736, green: 0, blue: 0.386495468, alpha: 1)]
    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBalls()
-        
         startDeviceMotion()
         createAnimator()
     }
@@ -33,19 +32,27 @@ class ViewController: UIViewController {
         motion.stopDeviceMotionUpdates()
     }
     
-    func addBalls() {
-        var distance:Int = 0
-        var viewX:Int = 0
+    func calculatePositions() {
+        var height:CGFloat = 0
+        var width:CGFloat = 0
         if let view = self.view {
-            distance = Int(view.frame.height) / colors.count
-            viewX = Int(view.center.x)
+            height = view.frame.height
+            width = view.frame.width
         }
         
-        var lastY:Int = 0
-        for i in colors {
-            let p = CGPoint(x: viewX, y: lastY)
-            balls.append(createBall(position: p, color: i))
-            lastY += distance
+       for _ in 0..<colors.count {
+            let randomX = CGFloat.random(in: 0..<width)
+            let randomY = CGFloat.random(in: 0..<height)
+            let p = CGPoint(x: randomX, y: randomY)
+            yPositions.append(p)
+        }
+    }
+    
+    func addBalls() {
+        calculatePositions()
+        for i in 0..<colors.count {
+            let ball = createBall(position: yPositions[i], color: colors[i])
+            balls.append(ball)
         }
     }
     
@@ -89,7 +96,6 @@ class ViewController: UIViewController {
                             
                                     let x = CGFloat(grav.x)
                                     let y = CGFloat(grav.y)
-//
                                     let v = CGVector(dx: x, dy: -y)
                                     self.gravity.gravityDirection = v
                                 }
@@ -97,6 +103,17 @@ class ViewController: UIViewController {
             
             RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
         }
+    }
+    
+    // Ao tocar na tela, recoloca as bolas em suas posições iniciais
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for i in balls {
+            i.removeFromSuperview()
+            gravity.removeItem(i)
+            collider.removeItem(i)
+        }
+        yPositions.removeAll()
+        addBalls()
     }
     
 }
