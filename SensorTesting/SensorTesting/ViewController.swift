@@ -10,7 +10,8 @@ import UIKit
 import CoreMotion
 
 class ViewController: UIViewController {
-
+ 
+    
     let motion = CMMotionManager()
     
     var animator:UIDynamicAnimator? = nil
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
     }
     
     func createAnimator() {
-        animator = UIDynamicAnimator(referenceView: self.view);
+        animator = UIDynamicAnimator(referenceView: self.view)
         
         // Permite que as bolas colidam com objetos
         collider.translatesReferenceBoundsIntoBoundary = true
