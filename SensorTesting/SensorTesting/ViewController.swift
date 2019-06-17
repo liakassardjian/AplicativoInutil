@@ -17,11 +17,13 @@ class ViewController: UIViewController {
     let gravity = UIGravityBehavior()
     let collider = UICollisionBehavior()
     
-    var ball:UIView?
+    var balls:[UIView] = []
+    
+    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.7035043312, green: 0.4171022667, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.5980905911, blue: 0.3536005144, alpha: 1),#colorLiteral(red: 0.4720113319, green: 1, blue: 0.5710921309, alpha: 1),#colorLiteral(red: 0.2889700684, green: 0.8908427892, blue: 1, alpha: 1)]
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        createBall()
+        addBalls()
         
         startDeviceMotion()
         createAnimator()
@@ -31,29 +33,44 @@ class ViewController: UIViewController {
         motion.stopDeviceMotionUpdates()
     }
     
-    func createBall() {
-        let ball = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 60, height: 60))
+    func addBalls() {
+        var distance:Int = 0
+        var viewX:Int = 0
+        if let view = self.view {
+            distance = Int(view.frame.height) / colors.count
+            viewX = Int(view.center.x)
+        }
+        
+        var lastY:Int = 0
+        for i in colors {
+            let p = CGPoint(x: viewX, y: lastY)
+            balls.append(createBall(position: p, color: i))
+            lastY += distance
+        }
+    }
+    
+    func createBall(position: CGPoint, color: UIColor) -> UIView {
+        let ball = UIView(frame: CGRect(x: position.x, y: position.y, width: 60, height: 60))
         ball.layer.cornerRadius = ball.frame.height/2
-        ball.backgroundColor = UIColor.red
+        ball.backgroundColor = color
         
         self.view.insertSubview(ball, at: 0)
-        self.ball = ball
+        
+        collider.addItem(ball)
+        gravity.addItem(ball)
+        
+        return ball
     }
     
     func createAnimator() {
         animator = UIDynamicAnimator(referenceView: self.view);
         
-        // Permite que a bola colida com objetos
+        // Permite que as bolas colidam com objetos
         collider.translatesReferenceBoundsIntoBoundary = true
         animator?.addBehavior(collider)
         
-        // Permite que a bola apresente comportamento gravitacional
+        // Permite que as bolas apresentem comportamento gravitacional
         animator?.addBehavior(gravity)
-        
-        if let ball = self.ball {
-            collider.addItem(ball)
-            gravity.addItem(ball)
-        }
     }
 
     func startDeviceMotion() {
@@ -72,23 +89,7 @@ class ViewController: UIViewController {
                             
                                     let x = CGFloat(grav.x)
                                     let y = CGFloat(grav.y)
-//                                    var p = CGPoint(x: x, y: y)
-                                    
-//                                    let orientation = UIApplication.shared.statusBarOrientation
 //
-//                                    if orientation == UIInterfaceOrientation.landscapeLeft {
-//                                        let t = p.x
-//                                        p.x = 0 - p.y
-//                                        p.y = t
-//                                    } else if orientation == UIInterfaceOrientation.landscapeRight {
-//                                        let t = p.x
-//                                        p.x = p.y
-//                                        p.y = 0 - t
-//                                    } else if orientation == UIInterfaceOrientation.portraitUpsideDown {
-//                                        p.x *= -1
-//                                        p.y *= -1
-//                                    }
-                                    
                                     let v = CGVector(dx: x, dy: -y)
                                     self.gravity.gravityDirection = v
                                 }
