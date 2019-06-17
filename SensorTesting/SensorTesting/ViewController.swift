@@ -11,42 +11,49 @@ import CoreMotion
 
 class ViewController: UIViewController {
 
-    var referenceAttitude:CMAttitude?
     let motion = CMMotionManager()
+    
     var animator:UIDynamicAnimator? = nil
     let gravity = UIGravityBehavior()
     let collider = UICollisionBehavior()
-    let motionQueue = OperationQueue()
     
-    @IBOutlet weak var ball: UIView! {
-        didSet {
-            self.ball.layer.cornerRadius = self.ball.frame.height/2
-        }
-    }
-    
+    var ball:UIView?
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        createBall()
+        
         startDeviceMotion()
-        createAnimatorStuff()
+        createAnimator()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         motion.stopDeviceMotionUpdates()
     }
     
-    func createAnimatorStuff() {
+    func createBall() {
+        let ball = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 60, height: 60))
+        ball.layer.cornerRadius = ball.frame.height/2
+        ball.backgroundColor = UIColor.red
+        
+        self.view.insertSubview(ball, at: 0)
+        self.ball = ball
+    }
+    
+    func createAnimator() {
         animator = UIDynamicAnimator(referenceView: self.view);
         
         // Permite que a bola colida com objetos
-        collider.addItem(ball)
         collider.translatesReferenceBoundsIntoBoundary = true
         animator?.addBehavior(collider)
         
         // Permite que a bola apresente comportamento gravitacional
-        gravity.addItem(ball);
-        animator?.addBehavior(gravity);
+        animator?.addBehavior(gravity)
         
+        if let ball = self.ball {
+            collider.addItem(ball)
+            gravity.addItem(ball)
+        }
     }
 
     func startDeviceMotion() {
