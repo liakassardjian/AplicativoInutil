@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     var balls:[UIView] = []
     var yPositions:[CGPoint] = []
-    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.7035043312, green: 0.4171022667, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.5980905911, blue: 0.3536005144, alpha: 1),#colorLiteral(red: 0.4720113319, green: 1, blue: 0.5710921309, alpha: 1),#colorLiteral(red: 0.2889700684, green: 0.8908427892, blue: 1, alpha: 1),#colorLiteral(red: 0.9688869792, green: 0.4431061404, blue: 1, alpha: 1),#colorLiteral(red: 0.07239587351, green: 0.7626705266, blue: 0, alpha: 1),#colorLiteral(red: 0, green: 0.3556698624, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.738083218, blue: 0.1104417758, alpha: 1),#colorLiteral(red: 0.7113340736, green: 0, blue: 0.386495468, alpha: 1)]
+    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.8382436633, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.4022022188, blue: 0, alpha: 1),#colorLiteral(red: 0, green: 1, blue: 0.6779490709, alpha: 1),#colorLiteral(red: 0, green: 0.7733957171, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0, blue: 0.6808319688, alpha: 1),#colorLiteral(red: 0.1454425454, green: 0.2908638716, blue: 1, alpha: 1),#colorLiteral(red: 0.4930205345, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.7930418849, blue: 0, alpha: 1),#colorLiteral(red: 1, green: 0.5506727099, blue: 0, alpha: 1)]
    
     override func viewDidLoad() {
         super.viewDidLoad()
