@@ -21,12 +21,14 @@ class ViewController: UIViewController {
     var balls:[UIView] = []
     var yPositions:[CGPoint] = []
     let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.8382436633, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.4022022188, blue: 0, alpha: 1),#colorLiteral(red: 0, green: 1, blue: 0.6779490709, alpha: 1),#colorLiteral(red: 0, green: 0.7733957171, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0, blue: 0.6808319688, alpha: 1),#colorLiteral(red: 0.1454425454, green: 0.2908638716, blue: 1, alpha: 1),#colorLiteral(red: 0.4930205345, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.7930418849, blue: 0, alpha: 1),#colorLiteral(red: 1, green: 0.5506727099, blue: 0, alpha: 1)]
+    
+    var ball: UIView?
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addBalls()
-        startDeviceMotion()
-        createAnimator()
+//        addBalls()
+//        startDeviceMotion()
+//        createAnimator()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,6 +57,10 @@ class ViewController: UIViewController {
             let ball = createBall(position: yPositions[i], color: colors[i])
             balls.append(ball)
         }
+    }
+    
+    func addBall(at position: CGPoint) {
+        ball = createBall(position: position, color: .red)
     }
     
     func createBall(position: CGPoint, color: UIColor) -> UIView {
@@ -108,14 +114,37 @@ class ViewController: UIViewController {
     
     // Ao tocar na tela, recoloca as bolas em suas posições iniciais
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for i in balls {
-            i.removeFromSuperview()
-            gravity.removeItem(i)
-            collider.removeItem(i)
+//        for i in balls {
+//            i.removeFromSuperview()
+//            gravity.removeItem(i)
+//            collider.removeItem(i)
+//        }
+//        yPositions.removeAll()
+//        addBalls()
+        for t in touches {
+            let location = t.location(in: self.view)
+            print("Started at \(location)")
+            addBall(at: location)
         }
-        yPositions.removeAll()
-        addBalls()
     }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            let location = t.location(in: self.view)
+            print("Moved to \(location)")
+            ball?.center = location
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            print("Ended at \(t.location(in: self.view))")
+            ball?.removeFromSuperview()
+            ball = nil
+        }
+    }
+    
+    
     
 }
 
