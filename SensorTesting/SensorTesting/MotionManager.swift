@@ -20,16 +20,19 @@ class MotionManager {
             self.motion.deviceMotionUpdateInterval = 1.0 / 60.0
             self.motion.showsDeviceMovementDisplay = true
             self.motion.startDeviceMotionUpdates(using: .xMagneticNorthZVertical)
-            let timer = Timer(fire: Date(), interval: (1.0 / 60.0), repeats: true,
-                              block: { (timer) in
-                                if let data = self.motion.deviceMotion {
-                                    let grav = data.gravity
-                            
-                                    let x = CGFloat(grav.x)
-                                    let y = CGFloat(grav.y)
-                                    let v = CGVector(dx: x, dy: -y)
-                                    self.gravity.gravityDirection = v
-                                }
+            let timer = Timer(
+                fire: Date(),
+                interval: (1.0 / 60.0),
+                repeats: true,
+                block: { (timer) in
+                    if let data = self.motion.deviceMotion {
+                        let grav = data.gravity
+                
+                        let x = CGFloat(grav.x)
+                        let y = CGFloat(grav.y)
+                        let v = CGVector(dx: x, dy: -y)
+                        self.gravity.gravityDirection = v
+                    }
             })
             
             RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
