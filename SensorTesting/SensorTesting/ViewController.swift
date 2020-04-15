@@ -77,11 +77,14 @@ class ViewController: UIViewController {
     
     // Ao tocar na tela, recoloca as bolas em suas posições iniciais
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for t in touches {
-//            let location = t.location(in: self.view)
-//            print("Started at \(location)")
-//            addBall(at: location)
-//        }
+        for t in touches {
+            if checkTouch(t) {
+                print("Tocou")
+            } else {
+                print("Não tocou")
+            }
+            
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -100,6 +103,14 @@ class ViewController: UIViewController {
 //        }
     }
     
+    func checkTouch(_ touch: UITouch) -> Bool {
+        for ball in balls {
+            if ball.frame.contains(touch.location(in: view)) {
+                return true
+            }
+        }
+        return false
+    }
     
     
 }
