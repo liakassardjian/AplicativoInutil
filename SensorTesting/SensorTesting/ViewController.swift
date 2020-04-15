@@ -24,9 +24,9 @@ class ViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        addBalls()
+        addBalls()
         motionManager.startDeviceMotion()
-//        createAnimator()
+        createAnimator()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -62,9 +62,7 @@ class ViewController: UIViewController {
     }
     
     func createBall(position: CGPoint, color: UIColor) -> UIView {
-        let ball = UIView(frame: CGRect(x: position.x, y: position.y, width: 60, height: 60))
-        ball.layer.cornerRadius = ball.frame.height/2
-        ball.backgroundColor = color
+        let ball = CustomBall(position: position, color: color)
         
         self.view.insertSubview(ball, at: 0)
         
@@ -88,27 +86,27 @@ class ViewController: UIViewController {
     
     // Ao tocar na tela, recoloca as bolas em suas posições iniciais
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            let location = t.location(in: self.view)
-            print("Started at \(location)")
-            addBall(at: location)
-        }
+//        for t in touches {
+//            let location = t.location(in: self.view)
+//            print("Started at \(location)")
+//            addBall(at: location)
+//        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            let location = t.location(in: self.view)
-            print("Moved to \(location)")
-            ball?.center = location
-        }
+//        for t in touches {
+//            let location = t.location(in: self.view)
+//            print("Moved to \(location)")
+//            ball?.center = location
+//        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            print("Ended at \(t.location(in: self.view))")
-            ball?.removeFromSuperview()
-            ball = nil
-        }
+//        for t in touches {
+//            print("Ended at \(t.location(in: self.view))")
+//            ball?.removeFromSuperview()
+//            ball = nil
+//        }
     }
     
     

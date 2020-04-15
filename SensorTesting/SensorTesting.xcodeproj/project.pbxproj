@@ -13,6 +13,7 @@
 		E45AEFC622B801B200463485 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E45AEFC522B801B200463485 /* Assets.xcassets */; };
 		E45AEFC922B801B200463485 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45AEFC722B801B200463485 /* LaunchScreen.storyboard */; };
 		E4D65D7C2447879100BB21EF /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D65D7B2447879100BB21EF /* MotionManager.swift */; };
+		E4D65D7E244788CC00BB21EF /* CustomBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D65D7D244788CC00BB21EF /* CustomBall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		E45AEFC822B801B200463485 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E45AEFCA22B801B200463485 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4D65D7B2447879100BB21EF /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		E4D65D7D244788CC00BB21EF /* CustomBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				E45AEFBE22B801B100463485 /* AppDelegate.swift */,
 				E45AEFC022B801B100463485 /* ViewController.swift */,
 				E4D65D7B2447879100BB21EF /* MotionManager.swift */,
+				E4D65D7D244788CC00BB21EF /* CustomBall.swift */,
 				E45AEFC222B801B100463485 /* Main.storyboard */,
 				E45AEFC522B801B200463485 /* Assets.xcassets */,
 				E45AEFC722B801B200463485 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				E45AEFC122B801B100463485 /* ViewController.swift in Sources */,
 				E4D65D7C2447879100BB21EF /* MotionManager.swift in Sources */,
 				E45AEFBF22B801B100463485 /* AppDelegate.swift in Sources */,
+				E4D65D7E244788CC00BB21EF /* CustomBall.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
