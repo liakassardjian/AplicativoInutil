@@ -10,11 +10,7 @@ import UIKit
 
 class CustomBall: UIView {
     
-    var gradient: CAGradientLayer
-    
     init(position: CGPoint, colors: (first: UIColor, second: UIColor)) {
-        self.gradient = CAGradientLayer()
-        
         super.init(
             frame: CGRect(
                 x: position.x,
@@ -23,10 +19,9 @@ class CustomBall: UIView {
                 height: 60
             )
         )
-        
+
         self.layer.cornerRadius = self.frame.height/2
-        setGradient(firstColor: colors.first, secondColor: colors.second)
-        self.layer.insertSublayer(gradient, at: 0)
+        self.setGradient(firstColor: colors.first, secondColor: colors.second)
     }
     
     required init?(coder: NSCoder) {
@@ -34,11 +29,15 @@ class CustomBall: UIView {
     }
     
     func setGradient(firstColor: UIColor, secondColor: UIColor) {
-        gradient.colors = [firstColor, secondColor]
+        let gradient = CAGradientLayer()
+        gradient.colors = [firstColor.cgColor, secondColor.cgColor]
         gradient.locations = [0.0, 1.0]
-        gradient.startPoint = CGPoint(x: 0, y: 1)
-        gradient.endPoint = CGPoint(x: 1, y: 0)
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 1, y: 1)
         gradient.frame = self.bounds
         gradient.cornerRadius = self.layer.cornerRadius
+        
+        self.layer.insertSublayer(gradient, at: 0)
     }
+
 }

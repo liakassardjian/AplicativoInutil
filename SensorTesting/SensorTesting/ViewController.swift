@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var snapBehavior: UISnapBehavior!
     
     var balls = [CustomBall]()
-    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.8382436633, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.4022022188, blue: 0, alpha: 1),#colorLiteral(red: 0, green: 1, blue: 0.6779490709, alpha: 1),#colorLiteral(red: 0, green: 0.7733957171, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0, blue: 0.6808319688, alpha: 1),#colorLiteral(red: 0.1454425454, green: 0.2908638716, blue: 1, alpha: 1),#colorLiteral(red: 0.4930205345, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.7930418849, blue: 0, alpha: 1),#colorLiteral(red: 1, green: 0.5506727099, blue: 0, alpha: 1)]
     
     var ball: CustomBall?
     
@@ -88,7 +87,7 @@ class ViewController: UIViewController {
         
         var randomPositions = [CGPoint]()
         
-        for _ in colors {
+        for _ in 0 ..<  colors.count * 2 {
             let randomX = CGFloat.random(in: 0 ..< width)
             let randomY = CGFloat.random(in: 0 ..< height)
             let p = CGPoint(x: randomX, y: randomY)
@@ -100,14 +99,26 @@ class ViewController: UIViewController {
     
     func addBalls() {
         let positions = calculatePositions()
-        for i in 0 ..< colors.count {
-            let ball = createBall(position: positions[i], color: colors[i])
-            balls.append(ball)
+        var numberOfIterations = 0
+        for i in 0 ..< colors.count * 2 {
+            var newBall: CustomBall?
+            
+            if numberOfIterations < colors.count {
+                newBall = createBall(position: positions[i], colors: colors[i])
+            } else {
+                newBall = createBall(position: positions[i], colors: colors[i - colors.count])
+            }
+            
+            if let ball = newBall {
+                balls.append(ball)
+            }
+            
+            numberOfIterations += 1
         }
     }
     
-    func createBall(position: CGPoint, color: UIColor) -> CustomBall {
-        let ball = CustomBall(position: position, color: color)
+    func createBall(position: CGPoint, colors: (UIColor, UIColor)) -> CustomBall {
+        let ball = CustomBall(position: position, colors: colors)
         
         self.view.insertSubview(ball, at: 0)
         

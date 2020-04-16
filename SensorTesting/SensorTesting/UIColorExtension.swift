@@ -8,33 +8,42 @@
 
 import UIKit
 
+let colors: [(UIColor, UIColor)] = [(.red1, .red2),
+                                    (.green1, .green2),
+                                    (.pink1, .pink2),
+                                    (.orange1, .orange2),
+                                    (.blue1, .blue2),
+                                    (.purple1, .purple2),
+                                    (.limeGreen1, .limeGreen2)]
+
 extension UIColor {
     
-    static let red1 = UIColor(red: 229, green: 109, blue: 85, alpha: 1)
+    static let red1 = #colorLiteral(red: 0.8980392157, green: 0.4274509804, blue: 0.3333333333, alpha: 1)
     
-    static let red2 = UIColor(red: 215, green: 80, blue: 80, alpha: 1)
+    static let red2 = #colorLiteral(red: 0.8431372549, green: 0.3137254902, blue: 0.3137254902, alpha: 1)
     
-    static let green1 = UIColor(red: 95, green: 209, blue: 156, alpha: 1)
+    static let green1 = #colorLiteral(red: 0.3725490196, green: 0.8196078431, blue: 0.6117647059, alpha: 1)
     
-    static let green2 = UIColor(red: 89, green: 195, blue: 181, alpha: 1)
+    static let green2 = #colorLiteral(red: 0.3490196078, green: 0.7647058824, blue: 0.7098039216, alpha: 1)
     
-    static let pink1 = UIColor(red: 229, green: 85, blue: 181, alpha: 1)
+    static let pink1 = #colorLiteral(red: 0.8980392157, green: 0.3333333333, blue: 0.7098039216, alpha: 1)
     
-    static let pink2 = UIColor(red: 215, green: 80, blue: 126, alpha: 1)
+    static let pink2 = #colorLiteral(red: 0.8431372549, green: 0.3137254902, blue: 0.4941176471, alpha: 1)
     
-    static let orange1 = UIColor(red: 233, green: 174, blue: 64, alpha: 1)
+    static let orange1 = #colorLiteral(red: 0.9137254902, green: 0.6823529412, blue: 0.2509803922, alpha: 1)
     
-    static let orange2 = UIColor(red: 247, green: 125, blue: 68, alpha: 1)
+    static let orange2 = #colorLiteral(red: 0.968627451, green: 0.4901960784, blue: 0.2666666667, alpha: 1)
     
-    static let blue1 = UIColor(red: 68, green: 125, blue: 247, alpha: 1)
+    static let blue1 = #colorLiteral(red: 0.2666666667, green: 0.4901960784, blue: 0.968627451, alpha: 1)
     
-    static let blue2 = UIColor(red: 67, green: 64, blue: 233, alpha: 1)
+    static let blue2 = #colorLiteral(red: 0.262745098, green: 0.2509803922, blue: 0.9137254902, alpha: 1)
     
-    static let purple1 = UIColor(red: 196, green: 85, blue: 229, alpha: 1)
+    static let purple1 = #colorLiteral(red: 0.768627451, green: 0.3333333333, blue: 0.8980392157, alpha: 1)
     
-    static let purple2 = UIColor(red: 139, green: 80, blue: 215, alpha: 1)
+    static let purple2 = #colorLiteral(red: 0.5450980392, green: 0.3137254902, blue: 0.8431372549, alpha: 1)
     
-    static let limeGreen1 = UIColor(red: 189, green: 212, blue: 85, alpha: 1)
+    static let limeGreen1 = #colorLiteral(red: 0.7411764706, green: 0.831372549, blue: 0.3333333333, alpha: 1)
     
-    static let limeGreen2 = UIColor(red: 136, green: 196, blue: 79, alpha: 1)
+    static let limeGreen2 = #colorLiteral(red: 0.5333333333, green: 0.768627451, blue: 0.3098039216, alpha: 1)
+
 }
