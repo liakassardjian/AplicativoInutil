@@ -12,24 +12,22 @@ import CoreMotion
 class ViewController: UIViewController {
     
     var motionManager: MotionManager?
-        
+            
     var balls = [CustomBall]()
     var ball: CustomBall?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = .background
+        
         motionManager = MotionManager(view: self.view)
-        addBalls()
         motionManager?.startDeviceMotion()
+        addBalls()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         motionManager?.motion.stopDeviceMotionUpdates()
-    }
-    
-    override var prefersHomeIndicatorAutoHidden: Bool {
-        return false
     }
     
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
@@ -126,5 +124,6 @@ class ViewController: UIViewController {
         
         return ball
     }
+    
 }
 

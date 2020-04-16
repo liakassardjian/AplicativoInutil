@@ -45,5 +45,7 @@ extension UIColor {
     static let limeGreen1 = #colorLiteral(red: 0.7411764706, green: 0.831372549, blue: 0.3333333333, alpha: 1)
     
     static let limeGreen2 = #colorLiteral(red: 0.5333333333, green: 0.768627451, blue: 0.3098039216, alpha: 1)
+    
+    static let background = #colorLiteral(red: 0.9333333333, green: 0.8823529412, blue: 0.8196078431, alpha: 1)
 
 }

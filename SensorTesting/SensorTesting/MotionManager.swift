@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreMotion
+import AVFoundation
 
 class MotionManager: NSObject {
     
@@ -17,6 +18,7 @@ class MotionManager: NSObject {
     let collider = UICollisionBehavior()
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     var snap: UISnapBehavior!
+    var player: AVAudioPlayer?
 
     init(view: UIView) {
         animator = UIDynamicAnimator(referenceView: view)
@@ -56,7 +58,7 @@ class MotionManager: NSObject {
 }
 
 extension MotionManager: UICollisionBehaviorDelegate {
-    
+        
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
         impactFeedbackGenerator.impactOccurred()
     }

@@ -39,5 +39,5 @@ class CustomBall: UIView {
         
         self.layer.insertSublayer(gradient, at: 0)
     }
-
+    
 }
