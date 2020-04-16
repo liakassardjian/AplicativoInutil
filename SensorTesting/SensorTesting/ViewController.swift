@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var snapBehavior: UISnapBehavior!
     
     var balls = [CustomBall]()
-    
     var ball: CustomBall?
     
     override func viewDidLoad() {

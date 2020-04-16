@@ -9,11 +9,19 @@
 import UIKit
 import CoreMotion
 
-class MotionManager {
+class MotionManager: NSObject {
     
     let motion = CMMotionManager()
     let gravity = UIGravityBehavior()
     let collider = UICollisionBehavior()
+    let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+
+    override init() {
+        super.init()
+        
+        impactFeedbackGenerator.prepare()
+        collider.collisionDelegate = self
+    }
     
     func startDeviceMotion() {
         if motion.isDeviceMotionAvailable {
@@ -39,4 +47,14 @@ class MotionManager {
         }
     }
 
+}
+
+extension MotionManager: UICollisionBehaviorDelegate {
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
+        impactFeedbackGenerator.impactOccurred()
+    }
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item1: UIDynamicItem, with item2: UIDynamicItem, at p: CGPoint) {
+//        print("Sei lá, mas entrou aqui")
+    }
 }
