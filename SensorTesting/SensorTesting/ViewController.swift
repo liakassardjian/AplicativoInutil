@@ -10,111 +10,119 @@ import UIKit
 import CoreMotion
 
 class ViewController: UIViewController {
- 
     
-    let motion = CMMotionManager()
+    var motionManager: MotionManager?
+            
+    var balls = [CustomBall]()
+    var ball: CustomBall?
     
-    var animator:UIDynamicAnimator? = nil
-    let gravity = UIGravityBehavior()
-    let collider = UICollisionBehavior()
-    
-    var balls:[UIView] = []
-    var yPositions:[CGPoint] = []
-    let colors = [#colorLiteral(red: 1, green: 0.1367589235, blue: 0.2771877348, alpha: 1),#colorLiteral(red: 0.8382436633, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.4022022188, blue: 0, alpha: 1),#colorLiteral(red: 0, green: 1, blue: 0.6779490709, alpha: 1),#colorLiteral(red: 0, green: 0.7733957171, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0, blue: 0.6808319688, alpha: 1),#colorLiteral(red: 0.1454425454, green: 0.2908638716, blue: 1, alpha: 1),#colorLiteral(red: 0.4930205345, green: 0, blue: 1, alpha: 1),#colorLiteral(red: 1, green: 0.7930418849, blue: 0, alpha: 1),#colorLiteral(red: 1, green: 0.5506727099, blue: 0, alpha: 1)]
-   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .background
+        
+        motionManager = MotionManager(view: self.view)
+        motionManager?.startDeviceMotion()
         addBalls()
-        startDeviceMotion()
-        createAnimator()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        motion.stopDeviceMotionUpdates()
+        motionManager?.motion.stopDeviceMotionUpdates()
     }
     
-    func calculatePositions() {
-        var height:CGFloat = 0
-        var width:CGFloat = 0
-        if let view = self.view {
-            height = view.frame.height
-            width = view.frame.width
+    override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return UIRectEdge.bottom
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            ball = checkTouch(t)
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            let location = t.location(in: self.view)
+            
+            if let snap = motionManager?.snap {
+                motionManager?.animator.removeBehavior(snap)
+            }
+            
+            guard let b = ball else { return }
+            motionManager?.snap = UISnapBehavior(item: b, snapTo: location)
+            
+            if let snap = motionManager?.snap {
+                motionManager?.animator.addBehavior(snap)
+            }
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for _ in touches {
+            if let snap = motionManager?.snap {
+                motionManager?.animator.removeBehavior(snap)
+                motionManager?.snap = nil
+            }
+            ball = nil
+        }
+    }
+    
+    func checkTouch(_ touch: UITouch) -> CustomBall? {
+        for ball in balls {
+            if ball.frame.contains(touch.location(in: view)) {
+                return ball
+            }
+        }
+        return nil
+    }
+    
+    func calculatePositions() -> [CGPoint] {
+        guard let view = self.view else { return [] }
+        
+        let height = view.frame.height
+        let width = view.frame.width
+        
+        var randomPositions = [CGPoint]()
+        
+        for _ in 0 ..<  colors.count * 2 {
+            let randomX = CGFloat.random(in: 0 ..< width)
+            let randomY = CGFloat.random(in: 0 ..< height)
+            let p = CGPoint(x: randomX, y: randomY)
+            randomPositions.append(p)
         }
         
-       for _ in 0..<colors.count {
-            let randomX = CGFloat.random(in: 0..<width)
-            let randomY = CGFloat.random(in: 0..<height)
-            let p = CGPoint(x: randomX, y: randomY)
-            yPositions.append(p)
-        }
+        return randomPositions
     }
     
     func addBalls() {
-        calculatePositions()
-        for i in 0..<colors.count {
-            let ball = createBall(position: yPositions[i], color: colors[i])
-            balls.append(ball)
+        let positions = calculatePositions()
+        var numberOfIterations = 0
+        for i in 0 ..< colors.count * 2 {
+            var newBall: CustomBall?
+            
+            if numberOfIterations < colors.count {
+                newBall = createBall(position: positions[i], colors: colors[i])
+            } else {
+                newBall = createBall(position: positions[i], colors: colors[i - colors.count])
+            }
+            
+            if let ball = newBall {
+                balls.append(ball)
+            }
+            
+            numberOfIterations += 1
         }
     }
     
-    func createBall(position: CGPoint, color: UIColor) -> UIView {
-        let ball = UIView(frame: CGRect(x: position.x, y: position.y, width: 60, height: 60))
-        ball.layer.cornerRadius = ball.frame.height/2
-        ball.backgroundColor = color
+    func createBall(position: CGPoint, colors: (UIColor, UIColor)) -> CustomBall {
+        let ball = CustomBall(position: position, colors: colors)
         
         self.view.insertSubview(ball, at: 0)
         
-        collider.addItem(ball)
-        gravity.addItem(ball)
+        motionManager?.collider.addItem(ball)
+        motionManager?.gravity.addItem(ball)
         
         return ball
-    }
-    
-    func createAnimator() {
-        animator = UIDynamicAnimator(referenceView: self.view)
-        
-        // Permite que as bolas colidam com objetos
-        collider.translatesReferenceBoundsIntoBoundary = true
-        animator?.addBehavior(collider)
-        
-        // Permite que as bolas apresentem comportamento gravitacional
-        animator?.addBehavior(gravity)
-    }
-
-    func startDeviceMotion() {
-        if motion.isDeviceMotionAvailable {
-            //Frequencia de atualização dos sensores definida em segundos - no caso, 60 vezes por segundo
-            self.motion.deviceMotionUpdateInterval = 1.0 / 60.0
-            self.motion.showsDeviceMovementDisplay = true
-            //A partir da chamada desta função, o objeto motion passa a conter valores atualizados dos sensores; o parâmetro representa a referência para cálculo de orientação do dispositivo
-            self.motion.startDeviceMotionUpdates(using: .xMagneticNorthZVertical)
-            
-            //Um Timer é configurado para executar um bloco de código 60 vezes por segundo - a mesma frequência das atualizações dos dados de sensores. Neste bloco manipulamos as informações mais recentes para atualizar a interface.
-            let timer = Timer(fire: Date(), interval: (1.0 / 60.0), repeats: true,
-                              block: { (timer) in
-                                if let data = self.motion.deviceMotion {
-                                    let grav = data.gravity
-                            
-                                    let x = CGFloat(grav.x)
-                                    let y = CGFloat(grav.y)
-                                    let v = CGVector(dx: x, dy: -y)
-                                    self.gravity.gravityDirection = v
-                                }
-            })
-            
-            RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
-        }
-    }
-    
-    // Ao tocar na tela, recoloca as bolas em suas posições iniciais
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for i in balls {
-            i.removeFromSuperview()
-            gravity.removeItem(i)
-            collider.removeItem(i)
-        }
-        yPositions.removeAll()
-        addBalls()
     }
     
 }
