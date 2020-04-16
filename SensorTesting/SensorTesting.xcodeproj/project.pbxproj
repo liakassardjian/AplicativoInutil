@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E43B81DC2448C8280029686E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43B81DB2448C8280029686E /* UIColorExtension.swift */; };
 		E45AEFBF22B801B100463485 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45AEFBE22B801B100463485 /* AppDelegate.swift */; };
 		E45AEFC122B801B100463485 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45AEFC022B801B100463485 /* ViewController.swift */; };
 		E45AEFC422B801B100463485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45AEFC222B801B100463485 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E43B81DB2448C8280029686E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		E45AEFBB22B801B100463485 /* SensorTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SensorTesting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45AEFBE22B801B100463485 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E45AEFC022B801B100463485 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				E45AEFC022B801B100463485 /* ViewController.swift */,
 				E4D65D7B2447879100BB21EF /* MotionManager.swift */,
 				E4D65D7D244788CC00BB21EF /* CustomBall.swift */,
+				E43B81DB2448C8280029686E /* UIColorExtension.swift */,
 				E45AEFC222B801B100463485 /* Main.storyboard */,
 				E45AEFC522B801B200463485 /* Assets.xcassets */,
 				E45AEFC722B801B200463485 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 			files = (
 				E45AEFC122B801B100463485 /* ViewController.swift in Sources */,
 				E4D65D7C2447879100BB21EF /* MotionManager.swift in Sources */,
+				E43B81DC2448C8280029686E /* UIColorExtension.swift in Sources */,
 				E45AEFBF22B801B100463485 /* AppDelegate.swift in Sources */,
 				E4D65D7E244788CC00BB21EF /* CustomBall.swift in Sources */,
 			);
