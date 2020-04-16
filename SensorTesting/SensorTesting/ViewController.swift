@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     let motionManager = MotionManager()
     
     var animator: UIDynamicAnimator?
-    var snapBehavior: UISnapBehavior!
     
     var balls = [CustomBall]()
     var ball: CustomBall?
@@ -49,21 +48,21 @@ class ViewController: UIViewController {
         for t in touches {
             let location = t.location(in: self.view)
             
-            if (snapBehavior != nil) {
-                animator?.removeBehavior(snapBehavior)
+            if (motionManager.snap != nil) {
+                animator?.removeBehavior(motionManager.snap)
             }
             
             guard let b = ball else { return }
-            snapBehavior = UISnapBehavior(item: b, snapTo: location)
-            animator?.addBehavior(snapBehavior)
+            motionManager.snap = UISnapBehavior(item: b, snapTo: location)
+            animator?.addBehavior(motionManager.snap)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for _ in touches {
-            if let snap = snapBehavior {
+            if let snap = motionManager.snap {
                 animator?.removeBehavior(snap)
-                snapBehavior = nil
+                motionManager.snap = nil
             }
             ball = nil
         }

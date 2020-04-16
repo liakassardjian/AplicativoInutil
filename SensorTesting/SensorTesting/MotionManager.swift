@@ -15,6 +15,7 @@ class MotionManager: NSObject {
     let gravity = UIGravityBehavior()
     let collider = UICollisionBehavior()
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+    var snap: UISnapBehavior!
 
     override init() {
         super.init()
@@ -50,11 +51,9 @@ class MotionManager: NSObject {
 }
 
 extension MotionManager: UICollisionBehaviorDelegate {
+    
     func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?, at p: CGPoint) {
         impactFeedbackGenerator.impactOccurred()
     }
     
-    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item1: UIDynamicItem, with item2: UIDynamicItem, at p: CGPoint) {
-//        print("Sei lá, mas entrou aqui")
-    }
 }
