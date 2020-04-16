@@ -11,23 +11,21 @@ import CoreMotion
 
 class ViewController: UIViewController {
     
-    let motionManager = MotionManager()
-    
-    var animator: UIDynamicAnimator?
-    
+    var motionManager: MotionManager?
+        
     var balls = [CustomBall]()
     var ball: CustomBall?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        motionManager = MotionManager(view: self.view)
         addBalls()
-        motionManager.startDeviceMotion()
-        createAnimator()
+        motionManager?.startDeviceMotion()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        motionManager.motion.stopDeviceMotionUpdates()
+        motionManager?.motion.stopDeviceMotionUpdates()
     }
     
     override var prefersHomeIndicatorAutoHidden: Bool {
@@ -48,21 +46,24 @@ class ViewController: UIViewController {
         for t in touches {
             let location = t.location(in: self.view)
             
-            if (motionManager.snap != nil) {
-                animator?.removeBehavior(motionManager.snap)
+            if let snap = motionManager?.snap {
+                motionManager?.animator.removeBehavior(snap)
             }
             
             guard let b = ball else { return }
-            motionManager.snap = UISnapBehavior(item: b, snapTo: location)
-            animator?.addBehavior(motionManager.snap)
+            motionManager?.snap = UISnapBehavior(item: b, snapTo: location)
+            
+            if let snap = motionManager?.snap {
+                motionManager?.animator.addBehavior(snap)
+            }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for _ in touches {
-            if let snap = motionManager.snap {
-                animator?.removeBehavior(snap)
-                motionManager.snap = nil
+            if let snap = motionManager?.snap {
+                motionManager?.animator.removeBehavior(snap)
+                motionManager?.snap = nil
             }
             ball = nil
         }
@@ -120,19 +121,10 @@ class ViewController: UIViewController {
         
         self.view.insertSubview(ball, at: 0)
         
-        motionManager.collider.addItem(ball)
-        motionManager.gravity.addItem(ball)
+        motionManager?.collider.addItem(ball)
+        motionManager?.gravity.addItem(ball)
         
         return ball
     }
-    
-    func createAnimator() {
-        animator = UIDynamicAnimator(referenceView: self.view)
-        
-        motionManager.collider.translatesReferenceBoundsIntoBoundary = true
-        animator?.addBehavior(motionManager.collider)
-        animator?.addBehavior(motionManager.gravity)
-    }
-    
 }
 

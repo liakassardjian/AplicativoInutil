@@ -11,17 +11,22 @@ import CoreMotion
 
 class MotionManager: NSObject {
     
+    var animator: UIDynamicAnimator
     let motion = CMMotionManager()
     let gravity = UIGravityBehavior()
     let collider = UICollisionBehavior()
     let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     var snap: UISnapBehavior!
 
-    override init() {
-        super.init()
+    init(view: UIView) {
+        animator = UIDynamicAnimator(referenceView: view)
         
+        super.init()
         impactFeedbackGenerator.prepare()
         collider.collisionDelegate = self
+        collider.translatesReferenceBoundsIntoBoundary = true
+        animator.addBehavior(collider)
+        animator.addBehavior(gravity)
     }
     
     func startDeviceMotion() {
