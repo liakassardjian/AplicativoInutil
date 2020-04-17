@@ -8,6 +8,8 @@
 
 import UIKit
 
+let ballRadius: CGFloat = 30
+
 class CustomBall: UIView {
     
     init(position: CGPoint, colors: (first: UIColor, second: UIColor)) {
@@ -15,8 +17,8 @@ class CustomBall: UIView {
             frame: CGRect(
                 x: position.x,
                 y: position.y,
-                width: 60,
-                height: 60
+                width: ballRadius * 2,
+                height: ballRadius * 2
             )
         )
 
