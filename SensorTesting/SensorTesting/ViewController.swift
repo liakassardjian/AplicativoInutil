@@ -34,6 +34,10 @@ class ViewController: UIViewController {
         return UIRectEdge.bottom
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             ball = checkTouch(t)
