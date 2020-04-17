@@ -19,7 +19,7 @@
 
 /* Begin PBXFileReference section */
 		E43B81DB2448C8280029686E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		E45AEFBB22B801B100463485 /* Falling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Falling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E45AEFBB22B801B100463485 /* Gravity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gravity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E45AEFBE22B801B100463485 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E45AEFC022B801B100463485 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E45AEFC322B801B100463485 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		E45AEFBC22B801B100463485 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E45AEFBB22B801B100463485 /* Falling.app */,
+				E45AEFBB22B801B100463485 /* Gravity.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 			);
 			name = SensorTesting;
 			productName = SensorTesting;
-			productReference = E45AEFBB22B801B100463485 /* Falling.app */;
+			productReference = E45AEFBB22B801B100463485 /* Gravity.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -302,7 +302,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liakassardjian.SensorTesting;
-				PRODUCT_NAME = Falling;
+				PRODUCT_NAME = Gravity;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -320,7 +320,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liakassardjian.SensorTesting;
-				PRODUCT_NAME = Falling;
+				PRODUCT_NAME = Gravity;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

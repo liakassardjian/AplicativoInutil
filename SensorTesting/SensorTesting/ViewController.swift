@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     }
     
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
-        return UIRectEdge.bottom
+        return UIRectEdge.all
     }
     
     override var prefersStatusBarHidden: Bool {
