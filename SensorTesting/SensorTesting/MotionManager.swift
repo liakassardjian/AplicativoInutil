@@ -33,7 +33,7 @@ class MotionManager: NSObject {
     
     func startDeviceMotion() {
         if motion.isDeviceMotionAvailable {
-            self.motion.deviceMotionUpdateInterval = 1.0 / 60.0
+            self.motion.deviceMotionUpdateInterval = 1.0 / 120.0
             self.motion.showsDeviceMovementDisplay = true
             self.motion.startDeviceMotionUpdates(using: .xMagneticNorthZVertical)
             let timer = Timer(

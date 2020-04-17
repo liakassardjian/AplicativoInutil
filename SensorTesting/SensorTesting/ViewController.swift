@@ -89,8 +89,8 @@ class ViewController: UIViewController {
         var randomPositions = [CGPoint]()
         
         for _ in 0 ..<  colors.count * 2 {
-            let randomX = CGFloat.random(in: 0 ..< width)
-            let randomY = CGFloat.random(in: 0 ..< height)
+            let randomX = CGFloat.random(in: ballRadius ..< width - ballRadius)
+            let randomY = CGFloat.random(in: ballRadius ..< height - ballRadius)
             let p = CGPoint(x: randomX, y: randomY)
             randomPositions.append(p)
         }

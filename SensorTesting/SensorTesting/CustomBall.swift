@@ -8,6 +8,8 @@
 
 import UIKit
 
+let ballRadius: CGFloat = 30
+
 class CustomBall: UIView {
     
     init(position: CGPoint, colors: (first: UIColor, second: UIColor)) {
@@ -15,8 +17,8 @@ class CustomBall: UIView {
             frame: CGRect(
                 x: position.x,
                 y: position.y,
-                width: 60,
-                height: 60
+                width: ballRadius * 2,
+                height: ballRadius * 2
             )
         )
 
@@ -39,5 +41,28 @@ class CustomBall: UIView {
         
         self.layer.insertSublayer(gradient, at: 0)
     }
+    
+    var shapeLayer: CAShapeLayer = {
+        let _shapeLayer = CAShapeLayer()
+        _shapeLayer.fillColor = UIColor.clear.cgColor
+        return _shapeLayer
+    }()
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        layer.addSublayer(shapeLayer)
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        shapeLayer.path = circularPath(center: center).cgPath
+    }
+
+    private func circularPath(lineWidth: CGFloat = 0, center: CGPoint = .zero) -> UIBezierPath {
+        let radius = (min(bounds.width, bounds.height) - lineWidth) / 2
+        return UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: true)
+    }
+
+    override var collisionBoundsType: UIDynamicItemCollisionBoundsType { return .path }
+
+    override var collisionBoundingPath: UIBezierPath { return circularPath() }
     
 }
